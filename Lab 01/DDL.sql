@@ -44,24 +44,22 @@ CREATE OR REPLACE TYPE ingredients AS VARRAY (20) OF VARCHAR2 (20) ;
 
 create table cuisine(
     cuisine_id VARCHAR2(20),
+    menu_id VARCHAR2(20),
     recipe ingredients,
-    CONSTRAINT pk_cuisine_id PRIMARY KEY(cuisine_id)
+    price int,
+    calorie_count varchar2(10),
+    CONSTRAINT pk_cuisine_id PRIMARY KEY(cuisine_id),
+    CONSTRAINT fk_menu_id_cuisine FOREIGN KEY(menu_id) REFERENCES menu(menu_id)
 );
 
 
 create table menu(
     menu_id VARCHAR2(20),
     menu_name varchar2(100),
-    chef_id VARCHAR2(20),
     cuisine_id VARCHAR2(20),
     f_name VARCHAR2(50),
-    main_ingredients ingredients,
-    price int,
-    calorie_count varchar2(10)
-
-
+    
     CONSTRAINT pk_menu_id PRIMARY KEY(menu_id),
-    CONSTRAINT fk_chef_id FOREIGN KEY(chef_id) REFERENCES chef(chef_id),
     CONSTRAINT fk_f_name_menu FOREIGN KEY f_name REFERENCES franchise(f_name)
     CONSTRAINT fk_f_cuisine_id_menu FOREIGN KEY f_name REFERENCES cuisine(cuisine_id)
 );
@@ -75,14 +73,14 @@ CACHE 5;
 
 CREATE OR REPLACE
 TRIGGER MENU_NUMBER_INCREMENT
-BEFORE INSERT ON menu_owner
+BEFORE INSERT ON special_menu
 FOR EACH ROW
 BEGIN
     :NEW.menu_number := menu_number_seq . NEXTVAL ;
 END ;
 /
 
-create table menu_owner(
+create table special_menu(
     chef_id VARCHAR2(20),
     menu_id VARCHAR2(20),
     menu_number int not null,
@@ -114,10 +112,13 @@ create table order(
     order_id VARCHAR2(20),
     c_id VARCHAR2(20),
     cuisine_id VARCHAR2(20),
+    f_name VARCHAR2(50),
+
 
     CONSTRAINT pk_order_id PRIMARY KEY (order_id),
     CONSTRAINT fk_c_id_order FOREIGN KEY(c_id) REFERENCES customer(c_id),
-    CONSTRAINT fk_cuisine_id_order FOREIGN KEY(cuisine_id) REFERENCES cuisine(cuisine_id)
+    CONSTRAINT fk_cuisine_id_order FOREIGN KEY(cuisine_id) REFERENCES cuisine(cuisine_id),
+    CONSTRAINT fk_f_name_order FOREIGN KEY f_name REFERENCES franchise(f_name)
 
 
 )
