@@ -17,7 +17,6 @@ create table customer_franchise(
 
 create table franchise(
     f_name VARCHAR2(50),
-
     CONSTRAINT pk_f_name PRIMARY KEY (f_name)
 );
 
@@ -56,12 +55,18 @@ create table cuisine(
 create table menu(
     menu_id VARCHAR2(20),
     menu_name varchar2(100),
-    cuisine_id VARCHAR2(20),
-    f_name VARCHAR2(50),
-    
+
     CONSTRAINT pk_menu_id PRIMARY KEY(menu_id),
-    CONSTRAINT fk_f_name_menu FOREIGN KEY f_name REFERENCES franchise(f_name)
-    CONSTRAINT fk_f_cuisine_id_menu FOREIGN KEY f_name REFERENCES cuisine(cuisine_id)
+
+);
+
+create table franchise_menu(
+    f_name VARCHAR2(50),
+    menu_id VARCHAR2(20),
+
+    CONSTRAINT fk_f_name_fm FOREIGN KEY f_name REFERENCES franchise(f_name),
+    CONSTRAINT fk_menu_id_fm FOREIGN KEY f_name REFERENCES menu(menu_id)
+
 );
 
 CREATE SEQUENCE menu_number_seq
@@ -86,7 +91,7 @@ create table special_menu(
     menu_number int not null,
 
     CONSTRAINT fk_chef_id_owner FOREIGN KEY(chef_id) REFERENCES chef(chef_id),
-    CONSTRAINT fk_menu_id_owner FOREIGN KEY f_name REFERENCES menu(menu_id),
+    CONSTRAINT fk_menu_id_owner FOREIGN KEY menu_id REFERENCES menu(menu_id),
     check (menu_number <= 5)
 
 )
@@ -101,11 +106,15 @@ create table prefered_cuisine(
 
 create table rating(
     c_id VARCHAR2(20),
+    f_name VARCHAR2(50),
+    menu_id VARCHAR2(20),
     cuisine_id VARCHAR2(20),
     rating int,
 
     CONSTRAINT fk_c_id_rating FOREIGN KEY(c_id) REFERENCES customer(c_id),
-    CONSTRAINT fk_cuisine_id_rating FOREIGN KEY(cuisine_id) REFERENCES cuisine(cuisine_id)
+    CONSTRAINT fk_cuisine_id_rating FOREIGN KEY(cuisine_id) REFERENCES cuisine(cuisine_id),
+    CONSTRAINT fk_f_name_rating FOREIGN KEY f_name REFERENCES franchise(f_name),
+    CONSTRAINT fk_menu_id_rating FOREIGN KEY f_name REFERENCES menu(menu_id)
 );
 
 create table order(
@@ -119,6 +128,4 @@ create table order(
     CONSTRAINT fk_c_id_order FOREIGN KEY(c_id) REFERENCES customer(c_id),
     CONSTRAINT fk_cuisine_id_order FOREIGN KEY(cuisine_id) REFERENCES cuisine(cuisine_id),
     CONSTRAINT fk_f_name_order FOREIGN KEY f_name REFERENCES franchise(f_name)
-
-
 )

@@ -22,9 +22,9 @@ where ROWNUM <=5;
 
 -->d<--
 
-select c.c_name, COUNT(m.f_name) as count
-from prefered_cuisine p, menu m, customer c
-where p.c_id = c.c_id AND p.cuisine_id = m.cuisine_id
+-- select c.c_name, COUNT(m.f_name) as count
+-- from prefered_cuisine p, menu m, customer c
+-- where p.c_id = c.c_id AND p.cuisine_id = m.cuisine_id
 
 select c.c_name, a.count
 from(select c.c_name, COUNT(m.f_name) as count
