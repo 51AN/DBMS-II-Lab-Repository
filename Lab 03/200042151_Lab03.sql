@@ -15,10 +15,12 @@ begin
     hour := 0;
     minute := 0;
 
-    hour:=floor(time/60);
-    minute:=time-hour*60;
     intermission:=floor(time/70);
     intermission:=intermission*15;
+    time := time + intermission;
+    hour:=floor(time/60);
+    minute:=time-hour*60;
+    
     DBMS_OUTPUT.PUT_LINE( 'HOUR: ' || hour || ' || Minute: ' || Minute || ' || Intermission(mins): ' ||intermission);
 end;
 /
@@ -32,7 +34,6 @@ end;
 create or replace Procedure 
 top_rated(n in number)
 as 
-    i number;
     c number;
     c2 number;
     average number;
@@ -40,7 +41,6 @@ begin
     select avg(rev_stars) into average
     from movie natural join rating natural join reviewer;
     
-    i := 0;
     c := 0;
     c2 := 0;
     
@@ -90,7 +90,7 @@ begin
     end loop;
 
     
-    yearly:=earnings/(sysdate-release_date);
+    yearly:=earnings/YEAR(sysdate-release_date);
     
     return yearly;
 end;
@@ -126,8 +126,7 @@ begin
     where gen_id = genid;
 
     select avg(rev_stars) into total_average
-    from genres natural join mtype natural join rating 
-    where gen_id = 1001;
+    from genres natural join mtype natural join rating;
 
 
     select avg(rev_count) into total_count
@@ -195,7 +194,7 @@ BEGIN
 
     select count(movie.mov_id) into cnt_mov 
     from movie natural join mtype
-    where movie.release_date between start_date and end_date;
+    where gen_id = genre_id and movie.release_date between start_date and end_date;
 
     result := genre_name || ' Count of movies : ' || cnt_mov;
 
