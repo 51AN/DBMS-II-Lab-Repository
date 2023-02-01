@@ -193,8 +193,8 @@ BEGIN
     where gen_id = genre_id; 
 
     select count(movie.mov_id) into cnt_mov 
-    from movie natural join mtype
-    where gen_id = genre_id and movie.release_date between start_date and end_date;
+    from movie ,mtype
+    where movie.mov_id = mtype.mov_id and gen_id = genre_id and movie.MOV_RELEASEDATE between start_date and end_date;
 
     result := genre_name || ' Count of movies : ' || cnt_mov;
 
@@ -208,9 +208,9 @@ DECLARE
     start_date movie.mov_releasedate%type;
     end_date movie.mov_releasedate%type;
 BEGIN
-    start_date := '&Start date : ';
-    end_date := '&End date : ';
-    DBMS_OUTPUT.PUT_LINE(freq_genre(to_date(start_date), to_date(end_date));
+    start_date := '&start_date';
+    end_date := '&end_date';
+    DBMS_OUTPUT.PUT_LINE( freq_genre(to_date(start_date), to_date(end_date)));
 end;
 /
 
