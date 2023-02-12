@@ -28,6 +28,7 @@ begin
   DBMS_OUTPUT.PUT_LINE(amount) ;
 end;
 /
+
 -->2 : profit rate adds after the grace period has ended (yearly, biyearly etc.)
 
 create or replace 
@@ -38,7 +39,7 @@ baseAmount number;
 grace number;
 rate number;
 last_date date;
-curr_date date;
+open_date date;
 month number;
 cnt number;
 total_profit number;
@@ -63,11 +64,11 @@ begin
       from accountproperty ,account 
      where accountproperty.ap_id = account.acccode and account.a_id = id;
 
-     select lastdateinterest into last_date
+     select openningdate into open_date
        from account
       where account.a_id = id;
 
-    month := TRUNC(MONTHS_BETWEEN(sysdate, last_date));
+    month := TRUNC(MONTHS_BETWEEN(open_date, sysdate));
     cnt := 1;
     total_profit := 0;
     final_balance := baseAmount;
@@ -85,7 +86,7 @@ begin
         
     end loop;
     fnBalance := final_balance;
-    fnProfit := profit;
+    fnProfit := total_profit;
     output := 'Profit : ' || total_profit || ' Balance before profit : ' || baseAmount || ' Balance after profit : ' || final_balance;
     return output;
     
@@ -104,8 +105,6 @@ end;
 
 -->3 : do for all account and update ammounts table
 
-
-
 CREATE or replace
 procedure  all_profit
 AS
@@ -117,7 +116,8 @@ AS
   is
     select a_id from account;
 begin
-
+  
+  open c_profit;
   loop
     fetch c_profit into loop_id;
     exit when c_profit%notfound;
@@ -125,7 +125,7 @@ begin
     update balance set principalamount = finalbalance where accno = loop_id;
     update balance set profitamount = finalprofit where accno = loop_id;
   end loop;
-  
+  close c_profit;
 end;
 /
 

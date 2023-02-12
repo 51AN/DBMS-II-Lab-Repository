@@ -22,7 +22,7 @@ create table accountproperty(
 
 
 create table account(
-    a_id int,
+    a_id varchar2(50),
     name VARCHAR2(100),
     acccode int,
     openningdate date,
@@ -33,7 +33,7 @@ create table account(
 
 create table transaction(
     tid int,
-    accno int,
+    accno varchar2(50),
     amount number,
     transactionDate date,
     CONSTRAINT pk_tid PRIMARY key (tid),
@@ -41,7 +41,7 @@ create table transaction(
 );
 
 create table balance(
-    accno int,
+    accno varchar2(50),
     principalamount number,
     profitamount number,
     CONSTRAINT pk_accno primary key (accno),
@@ -54,17 +54,17 @@ insert into accountproperty values (3003, 'quarterly', 4.2, 4);
 insert into accountproperty values (4004, 'biyearly', 6.8, 6);
 insert into accountproperty values (5005, 'yearly', 8, 12);
 
-insert into account values (1, 'Sian', 2002, TO_DATE('2023-01-23', 'YYYY-MM-DD'), TO_DATE('2024-01-23', 'YYYY-MM-DD'));
-insert into account values (2, 'Dihan', 3003, TO_DATE('2023-01-24', 'YYYY-MM-DD'), TO_DATE('2024-01-23', 'YYYY-MM-DD'));
-insert into account values (3, 'Naz', 4004, TO_DATE('2023-01-25', 'YYYY-MM-DD'), TO_DATE('2024-01-23', 'YYYY-MM-DD'));
-insert into account values (4, 'Nafisa', 5005, TO_DATE('2023-01-26', 'YYYY-MM-DD'), TO_DATE('2024-01-23', 'YYYY-MM-DD'));
+insert into account values ('1', 'Sian', 2002, TO_DATE('2023-01-23', 'YYYY-MM-DD'), TO_DATE('2024-01-23', 'YYYY-MM-DD'));
+insert into account values ('2', 'Dihan', 3003, TO_DATE('2023-01-24', 'YYYY-MM-DD'), TO_DATE('2024-01-23', 'YYYY-MM-DD'));
+insert into account values ('3', 'Naz', 4004, TO_DATE('2023-01-25', 'YYYY-MM-DD'), TO_DATE('2024-01-23', 'YYYY-MM-DD'));
+insert into account values ('4', 'Nafisa', 5005, TO_DATE('2023-01-26', 'YYYY-MM-DD'), TO_DATE('2024-01-23', 'YYYY-MM-DD'));
 
-insert into transaction values (1, 1, 1000,TO_DATE('2023-01-31', 'YYYY-MM-DD') );
-insert into transaction values (2, 1, 1000,TO_DATE('2023-01-30', 'YYYY-MM-DD') );
-insert into transaction values (3, 1, 1000,TO_DATE('2023-01-29', 'YYYY-MM-DD') );
+insert into transaction values (1, '1', 1000,TO_DATE('2023-01-31', 'YYYY-MM-DD') );
+insert into transaction values (2, '1', 1000,TO_DATE('2023-01-30', 'YYYY-MM-DD') );
+insert into transaction values (3, '1', 1000,TO_DATE('2023-01-29', 'YYYY-MM-DD') );
 
 
-insert into balance values (1, 6900, 0);
-insert into balance values (2, 100670, 0);
-insert into balance values (3, 10000, 0);
-insert into balance values (4, 12000, 0);
+insert into balance values ('1', 6900, 0);
+insert into balance values ('2', 100670, 0);
+insert into balance values ('3', 10000, 0);
+insert into balance values ('4', 12000, 0);

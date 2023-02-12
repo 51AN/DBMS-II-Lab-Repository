@@ -116,3 +116,51 @@ begin
   dbms_output.put_line('Subtraction : ' || d);
 end;
 /
+
+
+
+
+
+
+create or replace 
+procedure calculate_transactions
+as
+  cursor c1
+  is
+  select SID , count(grade)
+  from grades 
+  where grade = 'F'
+  group by SID
+  having count(grade)>=3;
+
+  amount number;
+  accountnumber students.accountno%type;
+  category courses.cat%type;
+  creds courses.credit%type;
+
+BEGIN
+  amount := 0;
+  for row in c1 loop
+
+    select s.accountno into accountnumber
+    from students s
+    where s.id = row.SID;
+
+    select c.cat into category, c.credit into creds
+    from courses c, grades g
+    where row.SID = g.SID and c.id = g.CID;
+
+    if(category = 0 ) then amount := 50*creds;
+    elsif (category = 1) then amount := 75*creds;
+    end if;
+
+    insert into transactions values(accountnumber, 101, sysdate, amount, 'deposit made', 1);
+  end loop;
+
+end;
+/
+
+begin 
+  calculate_transactions()
+end;
+/
