@@ -1,0 +1,63 @@
+use Lab07_SocialMediaPlatform
+a)
+db.User.insertOne({"name": "Sian Ashsad",
+  "email": "sianashsad@iut-dhaka.edu",
+  "password": "password123"})
+ b)
+ db.User.insertMany([
+  {
+    "name": "Dihan Rhidwan",
+  "email": "rhidwanrashid@iut-dhaka.edu",
+  "password": "passthisguy",
+  "phone_no" : 01824234252,
+  "dob" : "14/3/2000",
+  "address":"boardbazar",
+  "hobbies":["gaming","watchingTV"],
+  "created_at": new Date()
+  },
+  {
+    "name": "Jawadul Islam",
+  "email": "jawadhawad@iut-dhaka.edu",
+  "password": "password123",
+  "phone_no" : 01834469662,
+  "address":"hall",
+  "hobbies":["daydreaming","crying"],
+  "created_at": new Date()
+  },
+  ])
+  
+ c)
+ db.users.insertOne(
+ {name:"Naz",email: "nazagaza@gmail.com", password:"somethingspass", phoneNo:012324253353, address:"hall", workingStatus:{designation:"student", Semester: 2}, createdAt: new Date()})
+
+d)
+db.User.updateOne({_id: ObjectId('641005970f5bfff2d68cb10a')}, 
+                     {'$addToSet' : {'follows' : {
+                        follower_id: "641008d20f5bfff2d68cb10f"
+                     } }})
+db.User.updateOne({_id: ObjectId('641008d20f5bfff2d68cb110')}, 
+                     {'$addToSet' : {'follows' : {
+                        follower_id: "641005970f5bfff2d68cb10a"
+                     } }})
+db.User.updateOne({_id: ObjectId('641005970f5bfff2d68cb10a')}, 
+                     {'$addToSet' : {'follows' : {
+                        follower_id: "641008d20f5bfff2d68cb110"
+                     } }})
+db.User.updateOne({_id: ObjectId('641008d20f5bfff2d68cb110')}, 
+                     {'$addToSet' : {'follows' : {
+                        follower_id: "641008d20f5bfff2d68cb10f"
+                     } }})
+
+e)
+db.Posts.insertMany([{userId:"641005970f5bfff2d68cb10a",content:"Status : Dead",likes:["641008d20f5bfff2d68cb10f","641008d20f5bfff2d68cb110"], createdAt: new Date()}])
+
+f)
+db.Posts.insertMany([{userId:"641008d20f5bfff2d68cb10f",content:"Battery Low",likes:["641008d20f5bfff2d68cb110","641005970f5bfff2d68cb10a"],comments:[{uid:"641008d20f5bfff2d68cb110",comment:"Agreed"},{uid:"641005970f5bfff2d68cb10a",comment:"sus"}], createdAt: new Date()}])
+
+
+
+
+
+3)
+
+a)db.posts.aggregate([{$sort:{createdAt: -1}}])
