@@ -1,0 +1,83 @@
+[{
+  "_id": {
+    "$oid": "641016690f5bfff2d68cb112"
+  },
+  "userId": {
+    "$oid": "641005970f5bfff2d68cb10a"
+  },
+  "content": "Status : Dead",
+  "likes": [
+    "641008d20f5bfff2d68cb10f",
+    "641008d20f5bfff2d68cb110"
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1678775913517"
+    }
+  },
+  "comments": [
+    {
+      "uid": "641008d20f5bfff2d68cb110",
+      "comment": "This better be a joke!"
+    },
+    {
+      "uid": "641005970f5bfff2d68cb10a",
+      "comment": "Are you alright fam?"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "641017260f5bfff2d68cb113"
+  },
+  "userId": {
+    "$oid": "641008d20f5bfff2d68cb10f"
+  },
+  "content": "Battery Low",
+  "likes": [
+    "641008d20f5bfff2d68cb110",
+    "641005970f5bfff2d68cb10a"
+  ],
+  "comments": [
+    {
+      "uid": "641008d20f5bfff2d68cb110",
+      "comment": "Agreed"
+    },
+    {
+      "uid": "641005970f5bfff2d68cb10a",
+      "comment": "sus"
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1678776102724"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "64157c63e7eb3028f955bb1f"
+  },
+  "userId": {
+    "$oid": "64149ee06f7de4e1ae347cc7"
+  },
+  "content": "Double Staff of Homa",
+  "likes": [
+    "64149ee06f7de4e1ae347cc6",
+    "641008d20f5bfff2d68cb110",
+    "641008d20f5bfff2d68cb10f"
+  ],
+  "comments": [
+    {
+      "uid": "641005970f5bfff2d68cb10a",
+      "comment": "Lucky MF"
+    },
+    {
+      "uid": "641008d20f5bfff2d68cb10f",
+      "comment": "Wanted Rust got Homa :3"
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1679129699689"
+    }
+  }
+}]
